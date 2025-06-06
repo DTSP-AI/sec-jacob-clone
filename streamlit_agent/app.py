@@ -56,7 +56,7 @@ html, body, [class*="css"] {{
 
 .main .block-container,
 .main {{
-    background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+    {f'background-image: url("data:image/png;base64,{bg_image}");' if bg_image else 'background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);'}
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -248,6 +248,61 @@ iframe[src*="soundcloud"] {{
     border-radius: 8px !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
 }}
+
+/* Sticky Chat Input */
+.stChatInput,
+.stChatInputContainer,
+[data-testid="stChatInput"],
+[data-testid="stChatInputContainer"] {{
+    position: sticky !important;
+    bottom: 20px !important;
+    z-index: 100 !important;
+    background-color: rgba(14, 17, 23, 0.9) !important;
+    backdrop-filter: blur(15px) !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    margin: 10px 0 !important;
+}}
+
+/* Chat input text styling */
+.stChatInput input,
+[data-testid="stChatInput"] input {{
+    background-color: rgba(30, 30, 30, 0.8) !important;
+    color: #FFFFFF !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 10px !important;
+}}
+
+/* Sticky Chat Thread with Dark Translucent Background */
+#kodey-chat-container {{
+    position: sticky !important;
+    top: 20px !important;
+    background-color: rgba(14, 17, 23, 0.85) !important;
+    backdrop-filter: blur(20px) !important;
+    border-radius: 20px !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6) !important;
+    padding: 1.5em !important;
+    margin: 2em 0 !important;
+    z-index: 50 !important;
+    max-height: 70vh !important;
+    overflow-y: auto !important;
+}}
+
+/* Chat messages styling for readability */
+#kodey-chat-container .stChatMessage {{
+    background-color: rgba(30, 30, 30, 0.7) !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    margin: 8px 0 !important;
+    padding: 12px !important;
+}}
+
+/* Ensure wallpaper shows through */
+.main .block-container {{
+    background-attachment: fixed !important;
+    min-height: 100vh !important;
+}}
 </style>
 """, unsafe_allow_html=True)
 
@@ -255,13 +310,7 @@ iframe[src*="soundcloud"] {{
 st.title("Jacob 2.0")
 st.write("Welcome to your AI coding assistant! Chat with Kodey below:")
 
-# Display the background image as a centered feature
-if bg_image:
-    st.markdown(f"""
-    <div style="display: flex; justify-content: center; margin: 20px 0;">
-        <img src="data:image/png;base64,{bg_image}" style="max-width: 100%; height: auto; border-radius: 15px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);">
-    </div>
-    """, unsafe_allow_html=True)
+# No centered image display - will be wallpaper background instead
 
 # Render the Kodey chat widget
 render_kodey_widget()
