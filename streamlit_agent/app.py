@@ -277,20 +277,18 @@ html, body, [class*="css"] {{
     padding: 12px !important;
 }}
 
-/* SoundCloud player styling */
+/* SoundCloud player styling - positioned under chat widget */
 #soundcloud-player {{
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    width: 280px;
-    height: 75px;
+    width: 180px;
+    height: 40px;
     opacity: 0.8;
-    z-index: 100;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 30px auto 20px auto;
+    display: block;
 }}
 
 #soundcloud-player iframe {{
@@ -300,10 +298,9 @@ html, body, [class*="css"] {{
 /* Responsive design for mobile */
 @media (max-width: 768px) {{
     #soundcloud-player {{
-        width: 240px;
-        height: 60px;
-        bottom: 10px;
-        left: 10px;
+        width: 160px;
+        height: 35px;
+        margin: 20px auto 15px auto;
     }}
 }}
 </style>
@@ -311,7 +308,7 @@ html, body, [class*="css"] {{
 
 # Main content
 st.title("Jacob 2.0")
-st.write("Welcome to your AI coding assistant! Chat with Kodey below:")
+st.write("The Beginning of the Dawn of the Machines")
 
 # Render the Kodey chat widget
 render_kodey_widget()
