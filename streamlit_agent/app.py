@@ -47,6 +47,7 @@ html, body, [class*="css"] {{
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    min-height: 100vh;
 }}
 
 .main .block-container::before {{
@@ -225,26 +226,7 @@ html, body, [class*="css"] {{
     padding: 1em !important;
 }}
 
-/* Music player expander - keep it minimal */
-.streamlit-expanderHeader {{
-    background-color: rgba(30, 30, 30, 0.6) !important;
-    border-radius: 8px !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    font-size: 0.9em !important;
-}}
-
-.streamlit-expanderContent {{
-    background-color: rgba(30, 30, 30, 0.8) !important;
-    border-radius: 8px !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    padding: 0.5em !important;
-}}
-
-/* Minimize iframe styling for SoundCloud */
-iframe[src*="soundcloud"] {{
-    border-radius: 8px !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-}}
+/* Remove old music player styles - no longer needed */
 
 /* Sticky Chat Input */
 .stChatInput,
@@ -298,14 +280,31 @@ iframe[src*="soundcloud"] {{
 /* SoundCloud player styling */
 #soundcloud-player {{
     position: fixed;
-    bottom: 10px;
-    left: 10px;
-    width: 300px;
-    height: 80px;
-    opacity: 0.7;
+    bottom: 20px;
+    left: 20px;
+    width: 280px;
+    height: 75px;
+    opacity: 0.8;
     z-index: 100;
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}}
+
+#soundcloud-player iframe {{
+    border-radius: 12px;
+}}
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {{
+    #soundcloud-player {{
+        width: 240px;
+        height: 60px;
+        bottom: 10px;
+        left: 10px;
+    }}
 }}
 </style>
 """, unsafe_allow_html=True)
