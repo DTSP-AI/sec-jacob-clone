@@ -130,12 +130,17 @@ p {{
     padding: 12px !important;
 }}
 
-/* Make Kodey widget internal elements translucent */
-#kodey-chat-container * {{
-    background-color: transparent !important;
+/* Force Kodey widget to be dark translucent instead of jet black */
+#kodey-chat-container,
+#kodey-chat-container *,
+#kodey-chat-container div,
+#kodey-chat-container .chat-widget,
+#kodey-chat-container .widget-container {{
+    background-color: rgba(20, 20, 20, 0.7) !important;
+    background: rgba(20, 20, 20, 0.7) !important;
 }}
 
-/* Kodey widget specific styling for translucency */
+/* Kodey widget specific styling for dark translucent appearance */
 #kodey-chat-container .chat-message,
 #kodey-chat-container .message,
 #kodey-chat-container .chat-input,
@@ -144,8 +149,12 @@ p {{
 #kodey-chat-container .chat-bubble,
 #kodey-chat-container .user-message,
 #kodey-chat-container .bot-message,
-#kodey-chat-container .ai-message {{
-    background-color: rgba(30, 30, 30, 0.6) !important; /* translucent backgrounds */
+#kodey-chat-container .ai-message,
+#kodey-chat-container .chat-container,
+#kodey-chat-container .message-list,
+#kodey-chat-container .input-container {{
+    background-color: rgba(25, 25, 25, 0.8) !important; /* dark translucent */
+    background: rgba(25, 25, 25, 0.8) !important;
     border-radius: 12px !important;             /* rounded corners */
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     color: #ffffff !important;
@@ -178,6 +187,22 @@ p {{
 #kodey-chat-container button:hover {{
     background-color: rgba(30, 144, 255, 1) !important;
     box-shadow: 0 4px 12px rgba(30, 144, 255, 0.3) !important;
+}}
+
+/* Override any remaining black backgrounds in Kodey widget */
+#kodey-chat-container [style*="background"],
+#kodey-chat-container [style*="background-color"] {{
+    background-color: rgba(25, 25, 25, 0.8) !important;
+    background: rgba(25, 25, 25, 0.8) !important;
+}}
+
+/* Target potential CSS classes that might be making it black */
+#kodey-chat-container .dark,
+#kodey-chat-container .black,
+#kodey-chat-container .bg-black,
+#kodey-chat-container .bg-dark {{
+    background-color: rgba(25, 25, 25, 0.8) !important;
+    background: rgba(25, 25, 25, 0.8) !important;
 }}
 
 .css-1d391kg {{
