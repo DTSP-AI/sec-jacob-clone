@@ -18,8 +18,26 @@ def get_base64_image(image_path):
 
 # Get the background image
 try:
-    bg_image = get_base64_image("streamlit_agent/images/sec_jacob.png")
-except FileNotFoundError:
+    # Try multiple possible paths
+    import os
+    possible_paths = [
+        "streamlit_agent/images/sec_jacob.png",
+        "images/sec_jacob.png", 
+        "./streamlit_agent/images/sec_jacob.png",
+        os.path.join(os.path.dirname(__file__), "images", "sec_jacob.png")
+    ]
+    
+    bg_image = ""
+    for path in possible_paths:
+        if os.path.exists(path):
+            bg_image = get_base64_image(path)
+            break
+    
+    if not bg_image:
+        # Fallback: use a dark gradient instead of background image
+        bg_image = ""
+        
+except Exception as e:
     # Fallback: use a dark gradient instead of background image
     bg_image = ""
 
@@ -235,23 +253,22 @@ iframe[src*="soundcloud"] {{
 """, unsafe_allow_html=True)
 
 # Main app
-st.title("🤖 Kodey AI Chat Assistant")
+st.title("Jacob 2.0")
 st.write("Welcome to your AI coding assistant! Chat with Kodey below:")
 
 # --- Music Toggle and Playback ---
-st.markdown("## 🎶 Theme Music")
-play_music = st.toggle("🔊 Play T2 Theme Music", value=False)
+play_music = st.toggle("🎵 T2 Theme", value=False)
 
 if play_music:
-    # Minimalist music player
-    with st.expander("🎵 T2 Theme (Click to expand player)", expanded=False):
+    # Minimalist music player in sidebar for low-key presence
+    with st.container():
         st_player(
             "https://soundcloud.com/rolando-jacinto-77409594/terminator-2-main-theme-joslin",
             config={
                 'repeat': True,
                 'autoPlay': True
             },
-            height=166  # Minimal height for SoundCloud player
+            height=120  # Compact height for minimal footprint
         )
 
 # Render the Kodey chat widget
