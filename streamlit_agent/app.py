@@ -17,7 +17,11 @@ def get_base64_image(image_path):
         return base64.b64encode(img_file.read()).decode()
 
 # Get the background image
-bg_image = get_base64_image("streamlit_agent/images/sec_jacob.png")
+try:
+    bg_image = get_base64_image("streamlit_agent/images/sec_jacob.png")
+except FileNotFoundError:
+    # Fallback: use a dark gradient instead of background image
+    bg_image = ""
 
 # Add custom CSS for ultra-modern dark theme with background image
 st.markdown(f"""
@@ -35,7 +39,7 @@ html, body, [class*="css"] {{
 
 .main .block-container,
 .main {{
-    background-image: url("data:image/png;base64,{bg_image}");
+    {f'background-image: url("data:image/png;base64,{bg_image}");' if bg_image else 'background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);'}
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
