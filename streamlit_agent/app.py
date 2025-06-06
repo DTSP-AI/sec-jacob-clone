@@ -29,9 +29,18 @@ st.markdown(f"""
 /* Import modern font */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
+/* Add Omicron font face */
+@font-face {{
+    font-family: 'Omicron';
+    src: url('/fonts/omicron.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}}
+
 /* Apply custom font across all components */
 html, body, [class*="css"] {{
-    font-family: 'Inter', omicron;
+    font-family: 'Omicron', 'Inter', sans-serif;
 }}
 
 /* Set the global background and text color */
@@ -71,7 +80,7 @@ html, body, [class*="css"] {{
 
 /* Style the main title text */
 h1 {{
-    font-size: 1.4rem !important;                /* smaller heading */
+    font-size: 1.12rem !important;               /* reduced by ~20% from 1.4rem */
     font-weight: 500 !important;                /* medium weight */
     margin-top: 10px !important;                /* spacing from top */
     margin-bottom: 4px !important;
@@ -81,6 +90,8 @@ h1 {{
     display: inline-block;
     position: relative;
     z-index: 2;
+    backdrop-filter: blur(10px);                 /* background blur */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);   /* subtle box shadow */
 }}
 
 /* Style subtitle or description */
@@ -99,10 +110,10 @@ p {{
     position: sticky !important;
     top: 10px !important;                        /* sticks near top on scroll */
     background-color: rgba(14, 17, 23, 0.75) !important; /* translucent black */
-    backdrop-filter: blur(20px) !important;
-    border-radius: 18px !important;
+    backdrop-filter: blur(10px) !important;     /* blurred background */
+    border-radius: 12px !important;             /* rounded corners */
     border: 1px solid rgba(255, 255, 255, 0.15) !important;
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important; /* subtle box shadow */
     padding: 1em !important;
     margin-top: 1em !important;
     max-height: 70vh !important;                /* responsive height */
@@ -134,21 +145,24 @@ p {{
 #kodey-chat-container .user-message,
 #kodey-chat-container .bot-message,
 #kodey-chat-container .ai-message {{
-    background-color: rgba(30, 30, 30, 0.6) !important;
-    border-radius: 12px !important;
+    background-color: rgba(30, 30, 30, 0.6) !important; /* translucent backgrounds */
+    border-radius: 12px !important;             /* rounded corners */
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     color: #ffffff !important;
-    backdrop-filter: blur(10px) !important;
+    backdrop-filter: blur(10px) !important;     /* blurred background */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important; /* subtle box shadows */
 }}
 
 /* Chat input field in Kodey widget */
 #kodey-chat-container input[type="text"],
 #kodey-chat-container textarea {{
-    background-color: rgba(20, 20, 20, 0.8) !important;
+    background-color: rgba(20, 20, 20, 0.8) !important; /* translucent backgrounds */
     border: 1px solid rgba(255, 255, 255, 0.2) !important;
     color: #ffffff !important;
-    border-radius: 10px !important;
+    border-radius: 12px !important;             /* rounded corners */
     padding: 8px 12px !important;
+    backdrop-filter: blur(10px) !important;     /* blurred background */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important; /* subtle box shadows */
 }}
 
 /* Kodey widget buttons */
@@ -314,7 +328,7 @@ iframe[src*="soundcloud"] {{
 # ---------------------
 
 # Title and subtitle
-st.markdown("# Jacob 2.0")
+st.markdown("# JACOB 2.0")
 st.markdown("The Beginning of the Dawn of the Machines")
 
 # Render the Kodey widget
