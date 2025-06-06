@@ -1,13 +1,10 @@
 import streamlit as st
-from kodey_widget import render_kodey_widget
 import base64
-from streamlit_player import st_player
+import os
+from kodey_widget import render_kodey_widget
 
-# Set page config
-st.set_page_config(
-    page_title="Jacob 2.0",
-    layout="wide"
-)
+# Set page configuration
+st.set_page_config(page_title="Jacob 2.0", layout="wide")
 
 # Function to encode image to base64
 @st.cache_data
@@ -15,32 +12,21 @@ def get_base64_image(image_path):
     with open(image_path, "rb") as img_file:
         return base64.b64encode(img_file.read()).decode()
 
-# Get the background image
-try:
-    # Try multiple possible paths
-    import os
-    possible_paths = [
-        "streamlit_agent/images/sec_jacob.png",
-        "images/sec_jacob.png", 
-        "./streamlit_agent/images/sec_jacob.png",
-        os.path.join(os.path.dirname(__file__), "images", "sec_jacob.png")
-    ]
-    
-    bg_image = ""
-    for path in possible_paths:
-        if os.path.exists(path):
-            bg_image = get_base64_image(path)
-            break
-    
-    if not bg_image:
-        # Fallback: use a dark gradient instead of background image
-        bg_image = ""
-        
-except Exception as e:
-    # Fallback: use a dark gradient instead of background image
-    bg_image = ""
+# Attempt to load background image
+bg_image = ""
+possible_paths = [
+    "streamlit_agent/images/sec_jacob.png",
+    "images/sec_jacob.png",
+    "./streamlit_agent/images/sec_jacob.png",
+    os.path.join(os.path.dirname(__file__), "images", "sec_jacob.png")
+]
 
-# Add custom CSS for ultra-modern dark theme with background image
+for path in possible_paths:
+    if os.path.exists(path):
+        bg_image = get_base64_image(path)
+        break
+
+# Inject custom CSS
 st.markdown(f"""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
@@ -89,15 +75,26 @@ html, body, [class*="css"] {{
 }}
 
 #kodey-chat-container {{
-    background-color: rgba(14, 17, 23, 0.65) !important;
+    position: sticky !important;
+    top: 20px !important;
+    background-color: rgba(14, 17, 23, 0.85) !important;
     backdrop-filter: blur(20px) !important;
     border-radius: 20px !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
-    position: relative !important;
-    z-index: 2 !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6) !important;
     padding: 1.5em !important;
-    margin-top: 2em !important;
+    margin: 2em 0 !important;
+    z-index: 50 !important;
+    max-height: 70vh !important;
+    overflow-y: auto !important;
+}}
+
+#kodey-chat-container .stChatMessage {{
+    background-color: rgba(30, 30, 30, 0.7) !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    margin: 8px 0 !important;
+    padding: 12px !important;
 }}
 
 .css-1d391kg {{
@@ -298,36 +295,33 @@ iframe[src*="soundcloud"] {{
     padding: 12px !important;
 }}
 
-/* Ensure wallpaper shows through */
-.main .block-container {{
-    background-attachment: fixed !important;
-    min-height: 100vh !important;
+/* SoundCloud player styling */
+#soundcloud-player {{
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    width: 300px;
+    height: 80px;
+    opacity: 0.7;
+    z-index: 100;
+    border-radius: 10px;
+    overflow: hidden;
 }}
 </style>
 """, unsafe_allow_html=True)
 
-# Main app
+# Main content
 st.title("Jacob 2.0")
 st.write("Welcome to your AI coding assistant! Chat with Kodey below:")
-
-# No centered image display - will be wallpaper background instead
 
 # Render the Kodey chat widget
 render_kodey_widget()
 
-# --- Small Audio Widget (positioned under chat) ---
-col1, col2, col3 = st.columns([2, 1, 2])
-with col2:
-    play_music = st.toggle("T2 Theme", value=False)
-
-if play_music:
-    # Small, unobtrusive music player under the chat
-    st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
-    st_player(
-        "https://soundcloud.com/rolando-jacinto-77409594/terminator-2-main-theme-joslin",
-        config={
-            'repeat': True,
-            'autoPlay': True
-        },
-        height=100  # Very compact height
-    ) 
+# Embed SoundCloud player
+st.markdown("""
+<div id="soundcloud-player">
+    <iframe width="100%" height="100%" scrolling="no" frameborder="no" allow="autoplay"
+        src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/rolando-jacinto-77409594/terminator-2-main-theme-joslin&color=%23000000&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false">
+    </iframe>
+</div>
+""", unsafe_allow_html=True) 
