@@ -5,8 +5,7 @@ from streamlit_player import st_player
 
 # Set page config
 st.set_page_config(
-    page_title="Kodey AI Chat",
-    page_icon="🤖",
+    page_title="Jacob 2.0",
     layout="wide"
 )
 
@@ -57,7 +56,7 @@ html, body, [class*="css"] {{
 
 .main .block-container,
 .main {{
-    {f'background-image: url("data:image/png;base64,{bg_image}");' if bg_image else 'background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);'}
+    background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -256,20 +255,30 @@ iframe[src*="soundcloud"] {{
 st.title("Jacob 2.0")
 st.write("Welcome to your AI coding assistant! Chat with Kodey below:")
 
-# --- Music Toggle and Playback ---
-play_music = st.toggle("🎵 T2 Theme", value=False)
-
-if play_music:
-    # Minimalist music player in sidebar for low-key presence
-    with st.container():
-        st_player(
-            "https://soundcloud.com/rolando-jacinto-77409594/terminator-2-main-theme-joslin",
-            config={
-                'repeat': True,
-                'autoPlay': True
-            },
-            height=120  # Compact height for minimal footprint
-        )
+# Display the background image as a centered feature
+if bg_image:
+    st.markdown(f"""
+    <div style="display: flex; justify-content: center; margin: 20px 0;">
+        <img src="data:image/png;base64,{bg_image}" style="max-width: 100%; height: auto; border-radius: 15px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);">
+    </div>
+    """, unsafe_allow_html=True)
 
 # Render the Kodey chat widget
-render_kodey_widget() 
+render_kodey_widget()
+
+# --- Small Audio Widget (positioned under chat) ---
+col1, col2, col3 = st.columns([2, 1, 2])
+with col2:
+    play_music = st.toggle("T2 Theme", value=False)
+
+if play_music:
+    # Small, unobtrusive music player under the chat
+    st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
+    st_player(
+        "https://soundcloud.com/rolando-jacinto-77409594/terminator-2-main-theme-joslin",
+        config={
+            'repeat': True,
+            'autoPlay': True
+        },
+        height=100  # Very compact height
+    ) 
