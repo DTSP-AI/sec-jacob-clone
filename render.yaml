@@ -3,16 +3,8 @@ services:
     name: kodey-ai-streamlit
     env: python
     plan: free
-    buildCommand: |
-      pip install --upgrade pip
-      pip install -r requirements.txt
-    startCommand: |
-      chmod +x start.sh
-      ./start.sh
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run streamlit_agent/app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true --server.enableCORS false --server.enableXsrfProtection false
     envVars:
       - key: PYTHON_VERSION
-        value: 3.12.0
-      - key: STREAMLIT_SERVER_HEADLESS
-        value: true
-      - key: STREAMLIT_SERVER_ENABLE_CORS
-        value: false 
+        value: 3.12.0 
