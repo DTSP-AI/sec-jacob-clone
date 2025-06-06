@@ -1,1 +1,2 @@
-streamlit>=1.28.0 
+streamlit>=1.28.0
+# Updated: 2025-01-06 - Removed streamlit-player dependency 
